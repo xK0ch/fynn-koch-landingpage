@@ -49,18 +49,22 @@ section h2 {
   background: #1e2433;
   border: 1px solid #2d3748;
   border-radius: 12px;
-  padding: 1.5rem;
-  text-decoration: none;
-  color: inherit;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
+  overflow: hidden;
   transition: border-color 0.2s, transform 0.2s;
 
   &:hover {
     border-color: #4f7aff;
     transform: translateY(-2px);
   }
+}
+
+.card-main {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1.5rem;
+  text-decoration: none;
+  color: inherit;
 }
 
 .card-icon {
@@ -103,6 +107,39 @@ section h2 {
 .arrow {
   color: #4f7aff;
   font-size: 1.1rem;
+}
+
+.card-links {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1.5rem;
+  background: #171c27;
+  border-top: 1px solid #2d3748;
+  font-size: 0.8rem;
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    color: #94a3b8;
+    text-decoration: none;
+    transition: color 0.2s;
+
+    &:hover {
+      color: #7dd3fc;
+    }
+  }
+
+  .link-icon {
+    font-size: 0.9rem;
+    opacity: 0.8;
+  }
+
+  .link-divider {
+    color: #475569;
+    font-size: 0.7rem;
+  }
 }
 
 footer {
