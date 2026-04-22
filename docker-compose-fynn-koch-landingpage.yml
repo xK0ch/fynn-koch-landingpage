@@ -1,0 +1,17 @@
+services:
+  fynn-koch-landingpage:
+    build: .
+    container_name: fynn-koch-landingpage
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /etc/letsencrypt:/etc/letsencrypt:ro
+      - /var/www/certbot:/var/www/certbot:ro
+    networks:
+      - proxy-net
+    restart: unless-stopped
+
+networks:
+  proxy-net:
+    name: proxy-net

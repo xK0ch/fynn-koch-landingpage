@@ -1,59 +1,109 @@
-# FynnKochLandingpage
+# fynn-koch-landingpage
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.3.
+Landing page for [fynn-koch.de](https://fynn-koch.de) — also acts as the central reverse proxy for all subdomains.
 
-## Development server
+## Architecture
 
-To start a local development server, run:
+This container has two responsibilities:
+1. **Landing page** — Angular app served at `fynn-koch.de`
+2. **Reverse proxy** — routes subdomains to their respective app containers
 
-```bash
-ng serve
+```
+Internet (Port 80/443)
+        │
+        ▼
+fynn-koch-landingpage (nginx)
+        │
+        ├── fynn-koch.de               → Angular landing page (static)
+        └── tanzschule.fynn-koch.de    → tanzschule-ui (Docker container)
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Local development
 
 ```bash
-ng generate component component-name
+npm install
+npm start        # Dev server at http://localhost:4200
+npm run build    # Production build
+npm run test     # Unit tests
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Adding a new project
+
+1. Add a new `server` block in `nginx.conf` (a commented template is at the bottom of the file)
+2. Add a CNAME record at your domain provider pointing `myproject` to `fynn-koch.de`
+3. Extend the SSL certificate with the new domain (see SSL setup below)
+4. Run `docker compose -f docker-compose-fynn-koch-landingpage.yml restart` on the server
+
+## SSL setup & auto-renewal
+
+### Initial certificate (one-time, while the container is stopped)
 
 ```bash
-ng generate --help
+docker compose -f docker-compose-fynn-koch-landingpage.yml down
+
+sudo certbot certonly --standalone \
+  --cert-name fynn-koch.de \
+  -d fynn-koch.de \
+  -d tanzschule.fynn-koch.de
+
+docker compose -f docker-compose-fynn-koch-landingpage.yml up -d
 ```
 
-## Building
+### Switch to webroot for automatic renewal (nginx must be running)
 
-To build the project run:
+Run this once to update certbot's saved config so future renewals happen automatically without any manual steps:
 
 ```bash
-ng build
+# Create the webroot directory on the host
+sudo mkdir -p /var/www/certbot
+
+sudo certbot certonly --webroot -w /var/www/certbot \
+  --cert-name fynn-koch.de \
+  -d fynn-koch.de \
+  -d tanzschule.fynn-koch.de
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+### Set up automatic renewal (cron job)
 
 ```bash
-ng test
+sudo crontab -e
 ```
 
-## Running end-to-end tests
+Add this line — runs every Monday at 3 AM, reloads nginx if the cert was renewed:
 
-For end-to-end (e2e) testing, run:
+```
+0 3 * * 1 certbot renew --quiet --deploy-hook "docker exec fynn-koch-landingpage nginx -s reload"
+```
+
+Test that renewal works without actually renewing:
 
 ```bash
-ng e2e
+sudo certbot renew --dry-run
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+### Adding a new domain to the certificate
 
-## Additional Resources
+```bash
+sudo certbot certonly --webroot -w /var/www/certbot \
+  --cert-name fynn-koch.de \
+  -d fynn-koch.de \
+  -d tanzschule.fynn-koch.de \
+  -d myproject.fynn-koch.de
+```
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## Deployment
+
+This is the only container with public ports 80/443. All other project containers run on internal Docker ports only.
+
+```bash
+# Create the shared network (once)
+docker network create proxy-net
+
+# Create the certbot webroot directory (once)
+sudo mkdir -p /var/www/certbot
+
+# Start
+docker compose -f docker-compose-fynn-koch-landingpage.yml up --build -d
+```
+
+Deployment is handled automatically via Jenkins (see `Jenkinsfile`).
