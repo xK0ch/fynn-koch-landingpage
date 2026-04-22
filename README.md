@@ -29,10 +29,54 @@ npm run test     # Unit tests
 
 ## Adding a new project
 
-1. Add a new `server` block in `nginx.conf` (a commented template is at the bottom of the file)
-2. Add a CNAME record at your domain provider pointing `myproject` to `fynn-koch.de`
-3. Extend the SSL certificate with the new domain (see SSL setup below)
-4. Run `docker compose -f docker-compose-fynn-koch-landingpage.yml restart` on the server
+### 1. DNS
+Add a CNAME record at your domain provider pointing `myproject` to `fynn-koch.de`. Wait until `ping myproject.fynn-koch.de` resolves to your server IP before continuing.
+
+### 2. Configure the new project
+The new project's container must:
+- Be on the external `proxy-net` Docker network
+- **Not** expose any ports to the host (no `ports:` entry in docker-compose)
+- Have a container name matching the `proxy_pass` target you'll set in step 4 (e.g. `myproject-ui`)
+
+Example `docker-compose.yml` snippet:
+```yaml
+services:
+  myproject-ui:
+    build: .
+    container_name: myproject-ui
+    networks:
+      - proxy-net
+    restart: unless-stopped
+
+networks:
+  proxy-net:
+    name: proxy-net
+    external: true
+```
+
+### 3. Extend the SSL certificate
+```bash
+sudo certbot certonly --webroot -w /var/www/certbot \
+  --cert-name fynn-koch.de \
+  -d fynn-koch.de \
+  -d tanzschule.fynn-koch.de \
+  -d myproject.fynn-koch.de
+```
+
+### 4. Add a server block to `nginx.conf`
+A commented template is at the bottom of `nginx.conf`. Set `server_name` to the new subdomain and `proxy_pass` to the container name from step 2.
+
+### 5. Deploy
+```bash
+# Start the new project
+cd ~/myproject
+docker compose -f docker-compose-myproject.yml up --build -d
+
+# Rebuild the landing page so nginx picks up the new config
+cd ~/fynn-koch-landingpage
+git pull
+docker compose -f docker-compose-fynn-koch-landingpage.yml up --build -d
+```
 
 ## SSL setup & auto-renewal
 
@@ -66,7 +110,7 @@ sudo certbot certonly --webroot -w /var/www/certbot \
 ### Set up automatic renewal (cron job)
 
 ```bash
-sudo crontab -e
+sudo EDITOR=vim crontab -e
 ```
 
 Add this line — runs every Monday at 3 AM, reloads nginx if the cert was renewed:
@@ -90,20 +134,3 @@ sudo certbot certonly --webroot -w /var/www/certbot \
   -d tanzschule.fynn-koch.de \
   -d myproject.fynn-koch.de
 ```
-
-## Deployment
-
-This is the only container with public ports 80/443. All other project containers run on internal Docker ports only.
-
-```bash
-# Create the shared network (once)
-docker network create proxy-net
-
-# Create the certbot webroot directory (once)
-sudo mkdir -p /var/www/certbot
-
-# Start
-docker compose -f docker-compose-fynn-koch-landingpage.yml up --build -d
-```
-
-Deployment is handled automatically via Jenkins (see `Jenkinsfile`).
