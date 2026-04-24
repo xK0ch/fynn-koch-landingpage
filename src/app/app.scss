@@ -125,12 +125,6 @@ main {
   border: 1px solid #2d3748;
   border-radius: 12px;
   overflow: hidden;
-  transition: border-color 0.2s, transform 0.2s;
-
-  &:hover {
-    border-color: #4f7aff;
-    transform: translateY(-2px);
-  }
 }
 
 .card-main {
@@ -138,8 +132,6 @@ main {
   flex-direction: column;
   gap: 0.75rem;
   padding: 1.5rem;
-  text-decoration: none;
-  color: inherit;
 }
 
 .card-icon {
@@ -166,7 +158,6 @@ main {
 .card-footer {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   margin-top: 0.25rem;
 }
 
@@ -177,11 +168,6 @@ main {
   padding: 0.2rem 0.6rem;
   border-radius: 999px;
   font-weight: 500;
-}
-
-.arrow {
-  color: #4f7aff;
-  font-size: 1.1rem;
 }
 
 .card-links {
