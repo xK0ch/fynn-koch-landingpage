@@ -3,7 +3,7 @@
     <div class="avatar" aria-label="Profile photo placeholder">FK</div>
     <div class="hero-text">
       <h1>Fynn Koch</h1>
-      <p class="tagline">Software developer &mdash; side projects &amp; experiments</p>
+      <p class="tagline">Software developer</p>
       <p class="about">
         Passionate about building clean, maintainable applications end to end.
         Currently focused on full-stack development with Angular and Spring Boot.
@@ -86,11 +86,13 @@
           <div class="timeline-content">
             <h3>{{ entry.title }}</h3>
             <p class="timeline-subtitle">{{ entry.subtitle }}</p>
-            <ul>
-              @for (detail of entry.details; track detail) {
-                <li>{{ detail }}</li>
-              }
-            </ul>
+            @if (entry.details?.length) {
+              <ul>
+                @for (detail of entry.details; track detail) {
+                  <li>{{ detail }}</li>
+                }
+              </ul>
+            }
           </div>
         </div>
       }
@@ -106,11 +108,13 @@
           <div class="timeline-content">
             <h3>{{ entry.title }}</h3>
             <p class="timeline-subtitle">{{ entry.subtitle }}</p>
-            <ul>
-              @for (detail of entry.details; track detail) {
-                <li>{{ detail }}</li>
-              }
-            </ul>
+            @if (entry.details?.length) {
+              <ul>
+                @for (detail of entry.details; track detail) {
+                  <li>{{ detail }}</li>
+                }
+              </ul>
+            }
           </div>
         </div>
       }
