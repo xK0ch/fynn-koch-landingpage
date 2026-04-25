@@ -1,0 +1,43 @@
+<section class="section">
+  <h2>Experience</h2>
+  <div class="timeline">
+    @for (entry of experience; track entry.subtitle + entry.period) {
+      <div class="timeline-item">
+        <div class="timeline-period">{{ entry.period }}</div>
+        <div class="timeline-content">
+          <h3>{{ entry.title }}</h3>
+          <p class="timeline-subtitle">{{ entry.subtitle }}</p>
+          @if (entry.details?.length) {
+            <ul>
+              @for (detail of entry.details; track detail) {
+                <li>{{ detail }}</li>
+              }
+            </ul>
+          }
+        </div>
+      </div>
+    }
+  </div>
+</section>
+
+<section class="section">
+  <h2>Education</h2>
+  <div class="timeline">
+    @for (entry of education; track entry.subtitle + entry.period) {
+      <div class="timeline-item">
+        <div class="timeline-period">{{ entry.period }}</div>
+        <div class="timeline-content">
+          <h3>{{ entry.title }}</h3>
+          <p class="timeline-subtitle">{{ entry.subtitle }}</p>
+          @if (entry.details?.length) {
+            <ul>
+              @for (detail of entry.details; track detail) {
+                <li>{{ detail }}</li>
+              }
+            </ul>
+          }
+        </div>
+      </div>
+    }
+  </div>
+</section>
