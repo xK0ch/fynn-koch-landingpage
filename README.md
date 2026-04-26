@@ -1,12 +1,12 @@
 # fynn-koch-landingpage
 
-Landing page for [fynn-koch.de](https://fynn-koch.de) — also acts as the central reverse proxy for all subdomains.
+Landing page for [fynn-koch.de](https://fynn-koch.de). It also acts as the central reverse proxy for all subdomains.
 
 ## Architecture
 
 This container has two responsibilities:
-1. **Landing page** — Angular app served at `fynn-koch.de`
-2. **Reverse proxy** — routes subdomains to their respective app containers
+1. **Landing page**: Angular app served at `fynn-koch.de`
+2. **Reverse proxy**: routes subdomains to their respective app containers
 
 ```
 Internet (Port 80/443)
@@ -113,7 +113,7 @@ sudo certbot certonly --webroot -w /var/www/certbot \
 sudo EDITOR=vim crontab -e
 ```
 
-Add this line — runs every Monday at 3 AM, reloads nginx if the cert was renewed:
+Add this line (runs every Monday at 3 AM, reloads nginx if the cert was renewed):
 
 ```
 0 3 * * 1 certbot renew --quiet --deploy-hook "docker exec fynn-koch-landingpage nginx -s reload"
