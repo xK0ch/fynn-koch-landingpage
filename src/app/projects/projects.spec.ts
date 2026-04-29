@@ -24,14 +24,31 @@ describe('Projects', () => {
     expect(compiled.querySelector('h2')?.textContent).toContain('Projects');
   });
 
-  it('should render three project cards', async () => {
+  it('should render four project cards', async () => {
     const fixture = TestBed.createComponent(Projects);
     await fixture.whenStable();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelectorAll('.card').length).toBe(3);
+    expect(compiled.querySelectorAll('.card').length).toBe(4);
   });
 
-  it('should render the Dance School card with Angular and Spring Boot tech chips and three external links', async () => {
+  it('should render the Tanzschule Family & Friends card with a single Angular chip and UI plus source links', async () => {
+    const fixture = TestBed.createComponent(Projects);
+    await fixture.whenStable();
+    const compiled = fixture.nativeElement as HTMLElement;
+    const cards = Array.from(compiled.querySelectorAll('.card'));
+    const tsfaf = cards.find(c => c.querySelector('h3')?.textContent?.includes('Tanzschule'));
+
+    expect(tsfaf).toBeTruthy();
+    expect(techLabels(tsfaf!)).toEqual(['Angular']);
+    expect(tsfaf!.querySelector('.tech-angular')).not.toBeNull();
+
+    const links = Array.from(tsfaf!.querySelectorAll<HTMLAnchorElement>('.card-links a'));
+    const hrefs = links.map(a => a.getAttribute('href'));
+    expect(hrefs).toContain('https://tsfaf.fynn-koch.de');
+    expect(hrefs).toContain('https://github.com/xK0ch/tsfaf-ui');
+  });
+
+  it('should render the Dance School card with Angular and Spring Boot tech chips and UI, API and source links', async () => {
     const fixture = TestBed.createComponent(Projects);
     await fixture.whenStable();
     const compiled = fixture.nativeElement as HTMLElement;
@@ -49,9 +66,11 @@ describe('Projects', () => {
     expect(hrefs).toContain('https://dance-school.fynn-koch.de');
     expect(hrefs).toContain('https://dance-school.fynn-koch.de/swagger-ui/index.html');
     expect(hrefs).toContain('https://dance-school.fynn-koch.de/v3/api-docs');
+    expect(hrefs).toContain('https://github.com/xK0ch/dance-school-ui');
+    expect(hrefs).toContain('https://github.com/xK0ch/dance-school-service');
   });
 
-  it('should render the Koch Reisen card with a single Angular chip and one UI link', async () => {
+  it('should render the Koch Reisen card with a single Angular chip and UI plus source links', async () => {
     const fixture = TestBed.createComponent(Projects);
     await fixture.whenStable();
     const compiled = fixture.nativeElement as HTMLElement;
@@ -63,8 +82,9 @@ describe('Projects', () => {
     expect(kochReisen!.querySelector('.tech-angular')).not.toBeNull();
 
     const links = Array.from(kochReisen!.querySelectorAll<HTMLAnchorElement>('.card-links a'));
-    expect(links.length).toBe(1);
-    expect(links[0].getAttribute('href')).toBe('https://koch-reisen.de');
+    const hrefs = links.map(a => a.getAttribute('href'));
+    expect(hrefs).toContain('https://koch-reisen.de');
+    expect(hrefs).toContain('https://github.com/xK0ch/koch-reisen');
   });
 
   it('should render the Shikaku card with Rust, Leptos and WebAssembly chips and a UI plus source link', async () => {

@@ -15,6 +15,7 @@ Internet (Port 80/443)
 fynn-koch-landingpage (nginx)
         │
         ├── fynn-koch.de               → Angular landing page (static)
+        ├── tsfaf.fynn-koch.de         → tsfaf-ui (Docker container)
         ├── dance-school.fynn-koch.de  → dance-school-ui (Docker container)
         └── shikaku.fynn-koch.de       → shikaku (Docker container)
 ```
@@ -60,6 +61,7 @@ networks:
 sudo certbot certonly --webroot -w /var/www/certbot \
   --cert-name fynn-koch.de \
   -d fynn-koch.de \
+  -d tsfaf.fynn-koch.de \
   -d dance-school.fynn-koch.de \
   -d shikaku.fynn-koch.de \
   -d myproject.fynn-koch.de
@@ -90,6 +92,7 @@ docker compose -f docker-compose-fynn-koch-landingpage.yml down
 sudo certbot certonly --standalone \
   --cert-name fynn-koch.de \
   -d fynn-koch.de \
+  -d tsfaf.fynn-koch.de \
   -d dance-school.fynn-koch.de \
   -d shikaku.fynn-koch.de
 
@@ -107,6 +110,7 @@ sudo mkdir -p /var/www/certbot
 sudo certbot certonly --webroot -w /var/www/certbot \
   --cert-name fynn-koch.de \
   -d fynn-koch.de \
+  -d tsfaf.fynn-koch.de \
   -d dance-school.fynn-koch.de \
   -d shikaku.fynn-koch.de
 ```
@@ -135,6 +139,7 @@ sudo certbot renew --dry-run
 sudo certbot certonly --webroot -w /var/www/certbot \
   --cert-name fynn-koch.de \
   -d fynn-koch.de \
+  -d tsfaf.fynn-koch.de \
   -d dance-school.fynn-koch.de \
   -d shikaku.fynn-koch.de \
   -d myproject.fynn-koch.de
