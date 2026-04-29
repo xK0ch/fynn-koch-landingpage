@@ -31,24 +31,24 @@ describe('Projects', () => {
     expect(compiled.querySelectorAll('.card').length).toBe(3);
   });
 
-  it('should render the Tanzschule card with Angular and Spring Boot tech chips and three external links', async () => {
+  it('should render the Dance School card with Angular and Spring Boot tech chips and three external links', async () => {
     const fixture = TestBed.createComponent(Projects);
     await fixture.whenStable();
     const compiled = fixture.nativeElement as HTMLElement;
     const cards = Array.from(compiled.querySelectorAll('.card'));
-    const tanzschule = cards.find(c => c.querySelector('h3')?.textContent?.includes('Tanzschule'));
+    const danceSchool = cards.find(c => c.querySelector('h3')?.textContent?.includes('Dance School'));
 
-    expect(tanzschule).toBeTruthy();
-    expect(techLabels(tanzschule!)).toEqual(['Angular', 'Spring Boot']);
-    expect(tanzschule!.querySelector('.tech-angular')).not.toBeNull();
-    expect(tanzschule!.querySelector('.tech-spring')).not.toBeNull();
+    expect(danceSchool).toBeTruthy();
+    expect(techLabels(danceSchool!)).toEqual(['Angular', 'Spring Boot']);
+    expect(danceSchool!.querySelector('.tech-angular')).not.toBeNull();
+    expect(danceSchool!.querySelector('.tech-spring')).not.toBeNull();
 
-    const links = Array.from(tanzschule!.querySelectorAll<HTMLAnchorElement>('.card-links a'));
+    const links = Array.from(danceSchool!.querySelectorAll<HTMLAnchorElement>('.card-links a'));
     const hrefs = links.map(a => a.getAttribute('href'));
 
-    expect(hrefs).toContain('https://tanzschule.fynn-koch.de');
-    expect(hrefs).toContain('https://tanzschule.fynn-koch.de/swagger-ui/index.html');
-    expect(hrefs).toContain('https://tanzschule.fynn-koch.de/v3/api-docs');
+    expect(hrefs).toContain('https://dance-school.fynn-koch.de');
+    expect(hrefs).toContain('https://dance-school.fynn-koch.de/swagger-ui/index.html');
+    expect(hrefs).toContain('https://dance-school.fynn-koch.de/v3/api-docs');
   });
 
   it('should render the Koch Reisen card with a single Angular chip and one UI link', async () => {
