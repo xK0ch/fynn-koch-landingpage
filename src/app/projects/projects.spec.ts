@@ -24,7 +24,7 @@ describe('Projects', () => {
     const fixture = TestBed.createComponent(Projects);
     await fixture.whenStable();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelectorAll('.card').length).toBe(2);
+    expect(compiled.querySelectorAll('.card').length).toBe(3);
   });
 
   it('should render the Tanzschule card with title, tag and three external links', async () => {
