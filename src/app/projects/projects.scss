@@ -54,17 +54,26 @@
 
 .card-footer {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
+  gap: 0.4rem;
   margin-top: 0.25rem;
 }
 
-.tag {
-  font-size: 0.75rem;
-  background: #2d3748;
-  color: #7dd3fc;
+.tech {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
   padding: 0.2rem 0.6rem;
   border-radius: 999px;
-  font-weight: 500;
+  color: #fff;
+  white-space: nowrap;
+
+  &.tech-angular { background: #dd0031; }
+  &.tech-spring  { background: #6db33f; }
+  &.tech-rust    { background: #b7410e; }
+  &.tech-leptos  { background: #ef3939; }
+  &.tech-wasm    { background: #654ff0; }
 }
 
 .card-links {
