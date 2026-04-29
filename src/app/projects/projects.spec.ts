@@ -8,6 +8,10 @@ describe('Projects', () => {
     }).compileComponents();
   });
 
+  function techLabels(card: Element): string[] {
+    return Array.from(card.querySelectorAll('.tech')).map(t => t.textContent?.trim() ?? '');
+  }
+
   it('should create the component', () => {
     const fixture = TestBed.createComponent(Projects);
     expect(fixture.componentInstance).toBeTruthy();
@@ -20,14 +24,14 @@ describe('Projects', () => {
     expect(compiled.querySelector('h2')?.textContent).toContain('Projects');
   });
 
-  it('should render two project cards', async () => {
+  it('should render three project cards', async () => {
     const fixture = TestBed.createComponent(Projects);
     await fixture.whenStable();
     const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.querySelectorAll('.card').length).toBe(3);
   });
 
-  it('should render the Tanzschule card with title, tag and three external links', async () => {
+  it('should render the Tanzschule card with Angular and Spring Boot tech chips and three external links', async () => {
     const fixture = TestBed.createComponent(Projects);
     await fixture.whenStable();
     const compiled = fixture.nativeElement as HTMLElement;
@@ -35,7 +39,9 @@ describe('Projects', () => {
     const tanzschule = cards.find(c => c.querySelector('h3')?.textContent?.includes('Tanzschule'));
 
     expect(tanzschule).toBeTruthy();
-    expect(tanzschule?.querySelector('.tag')?.textContent).toContain('Spring Boot');
+    expect(techLabels(tanzschule!)).toEqual(['Angular', 'Spring Boot']);
+    expect(tanzschule!.querySelector('.tech-angular')).not.toBeNull();
+    expect(tanzschule!.querySelector('.tech-spring')).not.toBeNull();
 
     const links = Array.from(tanzschule!.querySelectorAll<HTMLAnchorElement>('.card-links a'));
     const hrefs = links.map(a => a.getAttribute('href'));
@@ -45,7 +51,7 @@ describe('Projects', () => {
     expect(hrefs).toContain('https://tanzschule.fynn-koch.de/v3/api-docs');
   });
 
-  it('should render the Koch Reisen card with a single UI link', async () => {
+  it('should render the Koch Reisen card with a single Angular chip and one UI link', async () => {
     const fixture = TestBed.createComponent(Projects);
     await fixture.whenStable();
     const compiled = fixture.nativeElement as HTMLElement;
@@ -53,11 +59,31 @@ describe('Projects', () => {
     const kochReisen = cards.find(c => c.querySelector('h3')?.textContent?.includes('Koch Reisen'));
 
     expect(kochReisen).toBeTruthy();
-    expect(kochReisen?.querySelector('.tag')?.textContent?.trim()).toBe('Angular');
+    expect(techLabels(kochReisen!)).toEqual(['Angular']);
+    expect(kochReisen!.querySelector('.tech-angular')).not.toBeNull();
 
     const links = Array.from(kochReisen!.querySelectorAll<HTMLAnchorElement>('.card-links a'));
     expect(links.length).toBe(1);
     expect(links[0].getAttribute('href')).toBe('https://koch-reisen.de');
+  });
+
+  it('should render the Shikaku card with Rust, Leptos and WebAssembly chips and a UI plus source link', async () => {
+    const fixture = TestBed.createComponent(Projects);
+    await fixture.whenStable();
+    const compiled = fixture.nativeElement as HTMLElement;
+    const cards = Array.from(compiled.querySelectorAll('.card'));
+    const shikaku = cards.find(c => c.querySelector('h3')?.textContent?.includes('Shikaku'));
+
+    expect(shikaku).toBeTruthy();
+    expect(techLabels(shikaku!)).toEqual(['Rust', 'Leptos', 'WebAssembly']);
+    expect(shikaku!.querySelector('.tech-rust')).not.toBeNull();
+    expect(shikaku!.querySelector('.tech-leptos')).not.toBeNull();
+    expect(shikaku!.querySelector('.tech-wasm')).not.toBeNull();
+
+    const links = Array.from(shikaku!.querySelectorAll<HTMLAnchorElement>('.card-links a'));
+    const hrefs = links.map(a => a.getAttribute('href'));
+    expect(hrefs).toContain('https://shikaku.fynn-koch.de');
+    expect(hrefs).toContain('https://github.com/xK0ch/shikaku');
   });
 
   it('should mark all card links as opening in a new tab with rel="noopener noreferrer"', async () => {
