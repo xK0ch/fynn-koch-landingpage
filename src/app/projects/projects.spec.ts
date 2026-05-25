@@ -44,7 +44,7 @@ describe('Projects', () => {
 
     const links = Array.from(tsfaf!.querySelectorAll<HTMLAnchorElement>('.card-links a'));
     const hrefs = links.map(a => a.getAttribute('href'));
-    expect(hrefs).toContain('https://tsfaf.fynn-koch.de');
+    expect(hrefs).toContain('https://neu.tanzschule-family-and-friends.de/#/');
     expect(hrefs).toContain('https://github.com/xK0ch/tsfaf-ui');
   });
 
