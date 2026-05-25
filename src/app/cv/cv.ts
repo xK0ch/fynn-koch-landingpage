@@ -15,7 +15,7 @@ interface TimelineEntry {
 export class Cv {
   protected readonly experience: TimelineEntry[] = [
     {
-      period: '08/2025 - Present',
+      period: '08/2025 - 02/2026',
       title: 'IT Consultant',
       subtitle: 'ojuto consulting GmbH',
       details: [
