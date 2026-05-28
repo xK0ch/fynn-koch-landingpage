@@ -1,11 +1,11 @@
-FROM node:24.15.0-alpine AS build
+FROM node:24.16.0-alpine AS build
 WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci
 COPY . .
 RUN npx ng build --configuration=production
 
-FROM nginx:1.29.8-alpine
+FROM nginx:1.13.1-alpine
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY --from=build /app/dist/fynn-koch-landingpage/browser /usr/share/nginx/html
 EXPOSE 80
