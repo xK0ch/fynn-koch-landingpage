@@ -24,11 +24,28 @@ describe('Projects', () => {
     expect(compiled.querySelector('h2')?.textContent).toContain('Projects');
   });
 
-  it('should render four project cards', async () => {
+  it('should render five project cards', async () => {
     const fixture = TestBed.createComponent(Projects);
     await fixture.whenStable();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelectorAll('.card').length).toBe(4);
+    expect(compiled.querySelectorAll('.card').length).toBe(5);
+  });
+
+  it('should render the Dance School Websites card with a single TypeScript chip and UI plus source links', async () => {
+    const fixture = TestBed.createComponent(Projects);
+    await fixture.whenStable();
+    const compiled = fixture.nativeElement as HTMLElement;
+    const cards = Array.from(compiled.querySelectorAll('.card'));
+    const outreach = cards.find(c => c.querySelector('h3')?.textContent?.includes('Dance School Websites'));
+
+    expect(outreach).toBeTruthy();
+    expect(techLabels(outreach!)).toEqual(['TypeScript']);
+    expect(outreach!.querySelector('.tech-typescript')).not.toBeNull();
+
+    const links = Array.from(outreach!.querySelectorAll<HTMLAnchorElement>('.card-links a'));
+    const hrefs = links.map(a => a.getAttribute('href'));
+    expect(hrefs).toContain('https://tanzschule.fynn-koch.de');
+    expect(hrefs).toContain('https://github.com/xK0ch/tanzschule-landingpage');
   });
 
   it('should render the Tanzschule Family & Friends card with a single Angular chip and UI plus source links', async () => {
@@ -44,7 +61,7 @@ describe('Projects', () => {
 
     const links = Array.from(tsfaf!.querySelectorAll<HTMLAnchorElement>('.card-links a'));
     const hrefs = links.map(a => a.getAttribute('href'));
-    expect(hrefs).toContain('https://neu.tanzschule-family-and-friends.de');
+    expect(hrefs).toContain('https://www.tanzschule-family-and-friends.de');
     expect(hrefs).toContain('https://github.com/xK0ch/tsfaf-ui');
   });
 
