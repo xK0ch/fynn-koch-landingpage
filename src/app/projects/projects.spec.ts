@@ -70,7 +70,7 @@ describe('Projects', () => {
     await fixture.whenStable();
     const compiled = fixture.nativeElement as HTMLElement;
     const cards = Array.from(compiled.querySelectorAll('.card'));
-    const danceSchool = cards.find(c => c.querySelector('h3')?.textContent?.includes('Dance School'));
+    const danceSchool = cards.find(c => c.querySelector('h3')?.textContent?.includes('Dance School Management System'));
 
     expect(danceSchool).toBeTruthy();
     expect(techLabels(danceSchool!)).toEqual(['Angular', 'Spring Boot']);
