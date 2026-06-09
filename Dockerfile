@@ -3,10 +3,10 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci
 COPY . .
-RUN npx ng build --configuration=production
+RUN npm run build
 
 FROM nginx:1.13.1-alpine
 COPY nginx.conf /etc/nginx/nginx.conf
-COPY --from=build /app/dist/fynn-koch-landingpage/browser /usr/share/nginx/html
+COPY --from=build /app/dist /usr/share/nginx/html
 EXPOSE 80
 EXPOSE 443
