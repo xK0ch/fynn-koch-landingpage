@@ -17,6 +17,7 @@ fynn-koch-landingpage (nginx)
         ├── fynn-koch.de               → Vite landing page (static)
         ├── www.fynn-koch.de           → 301 redirect to fynn-koch.de
         ├── dance-school.fynn-koch.de  → dance-school-ui (Docker container)
+        ├── resume.fynn-koch.de        → resume-ui (Docker container)
         └── shikaku.fynn-koch.de       → shikaku (Docker container)
 ```
 
@@ -65,6 +66,7 @@ sudo certbot certonly --webroot -w /var/www/certbot \
   -d fynn-koch.de \
   -d www.fynn-koch.de \
   -d dance-school.fynn-koch.de \
+  -d resume.fynn-koch.de \
   -d shikaku.fynn-koch.de \
   -d myproject.fynn-koch.de
 ```
@@ -96,6 +98,7 @@ sudo certbot certonly --standalone \
   -d fynn-koch.de \
   -d www.fynn-koch.de \
   -d dance-school.fynn-koch.de \
+  -d resume.fynn-koch.de \
   -d shikaku.fynn-koch.de
 
 docker compose -f docker-compose-fynn-koch-landingpage.yml up -d
@@ -114,6 +117,7 @@ sudo certbot certonly --webroot -w /var/www/certbot \
   -d fynn-koch.de \
   -d www.fynn-koch.de \
   -d dance-school.fynn-koch.de \
+  -d resume.fynn-koch.de \
   -d shikaku.fynn-koch.de
 ```
 
@@ -143,6 +147,7 @@ sudo certbot certonly --webroot -w /var/www/certbot \
   -d fynn-koch.de \
   -d www.fynn-koch.de \
   -d dance-school.fynn-koch.de \
+  -d resume.fynn-koch.de \
   -d shikaku.fynn-koch.de \
   -d myproject.fynn-koch.de
 ```
