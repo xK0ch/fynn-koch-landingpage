@@ -60,13 +60,58 @@ footer {
   }
 }
 
-.avatar {
+.avatar-button {
   flex-shrink: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  border-radius: 50%;
+  cursor: pointer;
+  line-height: 0;
+}
+.avatar-button:focus-visible {
+  outline: 2px solid #4f7aff;
+  outline-offset: 3px;
+}
+
+.avatar {
+  display: block;
   width: 140px;
   height: 140px;
   border-radius: 50%;
   object-fit: cover;
   border: 3px solid #2d3748;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.avatar-button:hover .avatar,
+.avatar-button:focus-visible .avatar {
+  border-color: #4f7aff;
+  transform: scale(1.03);
+}
+
+/* Lightbox */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background: rgba(15, 17, 23, 0.85);
+  backdrop-filter: blur(4px);
+  cursor: zoom-out;
+}
+.lightbox[hidden] {
+  display: none;
+}
+.lightbox-image {
+  max-width: min(90vw, 600px);
+  max-height: 90vh;
+  object-fit: contain;
+  border-radius: 12px;
+  border: 3px solid #2d3748;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
 }
 
 .hero-text {

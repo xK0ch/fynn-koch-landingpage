@@ -7,3 +7,27 @@ import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 
 library.add(faGlobe, faGear, faCode, faGithub, faLinkedin);
 dom.watch();
+
+// Profile photo lightbox: click the avatar to view it enlarged.
+const avatarButton = document.querySelector<HTMLButtonElement>('.avatar-button');
+const lightbox = document.querySelector<HTMLElement>('#lightbox');
+
+if (avatarButton && lightbox) {
+  const openLightbox = () => {
+    lightbox.hidden = false;
+    document.body.style.overflow = 'hidden';
+  };
+
+  const closeLightbox = () => {
+    lightbox.hidden = true;
+    document.body.style.overflow = '';
+  };
+
+  avatarButton.addEventListener('click', openLightbox);
+  lightbox.addEventListener('click', closeLightbox);
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && !lightbox.hidden) {
+      closeLightbox();
+    }
+  });
+}

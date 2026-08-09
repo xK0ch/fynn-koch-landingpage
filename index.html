@@ -13,7 +13,9 @@
 
   <!-- HERO -->
   <section class="hero">
-    <img class="avatar" src="/fynn-koch.jpg" alt="Fynn Koch" width="140" height="140" />
+    <button type="button" class="avatar-button" aria-label="Enlarge profile photo">
+      <img class="avatar" src="/fynn-koch.jpg" alt="Fynn Koch" width="140" height="140" />
+    </button>
     <div class="hero-text">
       <h1>Fynn Koch</h1>
       <p class="tagline">Software developer</p>
@@ -250,6 +252,11 @@
 <footer>
   <p>&copy; 2026 Fynn Koch</p>
 </footer>
+
+<!-- Lightbox for the profile photo -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Profile photo" hidden>
+  <img class="lightbox-image" src="/fynn-koch.jpg" alt="Fynn Koch" />
+</div>
 
 <script type="module" src="/src/main.ts"></script>
 
