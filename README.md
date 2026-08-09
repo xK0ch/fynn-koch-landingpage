@@ -5,7 +5,7 @@ Landing page for [fynn-koch.de](https://fynn-koch.de). It also acts as the centr
 ## Architecture
 
 This container has two responsibilities:
-1. **Landing page**: Angular app served at `fynn-koch.de`
+1. **Landing page**: static Vite site served at `fynn-koch.de`
 2. **Reverse proxy**: routes subdomains to their respective app containers
 
 ```
@@ -14,20 +14,21 @@ Internet (Port 80/443)
         ▼
 fynn-koch-landingpage (nginx)
         │
-        ├── fynn-koch.de               → Angular landing page (static)
+        ├── fynn-koch.de               → Vite landing page (static)
         ├── www.fynn-koch.de           → 301 redirect to fynn-koch.de
-        ├── tanzschule.fynn-koch.de    → tsfaf-ui (Docker container)
         ├── dance-school.fynn-koch.de  → dance-school-ui (Docker container)
         └── shikaku.fynn-koch.de       → shikaku (Docker container)
 ```
 
 ## Local development
 
+The landing page is a static site built with [Vite](https://vite.dev/) and TypeScript.
+
 ```bash
 npm install
-npm start        # Dev server at http://localhost:4200
-npm run build    # Production build
-npm run test     # Unit tests
+npm run dev        # Vite dev server with hot reload at http://localhost:5173
+npm run build      # Production build to dist/ (runs tsc first)
+npm run preview    # Serve the production build locally to verify it
 ```
 
 ## Adding a new project
@@ -63,7 +64,6 @@ sudo certbot certonly --webroot -w /var/www/certbot \
   --cert-name fynn-koch.de \
   -d fynn-koch.de \
   -d www.fynn-koch.de \
-  -d tanzschule.fynn-koch.de \
   -d dance-school.fynn-koch.de \
   -d shikaku.fynn-koch.de \
   -d myproject.fynn-koch.de
@@ -95,7 +95,6 @@ sudo certbot certonly --standalone \
   --cert-name fynn-koch.de \
   -d fynn-koch.de \
   -d www.fynn-koch.de \
-  -d tanzschule.fynn-koch.de \
   -d dance-school.fynn-koch.de \
   -d shikaku.fynn-koch.de
 
@@ -114,7 +113,6 @@ sudo certbot certonly --webroot -w /var/www/certbot \
   --cert-name fynn-koch.de \
   -d fynn-koch.de \
   -d www.fynn-koch.de \
-  -d tanzschule.fynn-koch.de \
   -d dance-school.fynn-koch.de \
   -d shikaku.fynn-koch.de
 ```
@@ -144,7 +142,6 @@ sudo certbot certonly --webroot -w /var/www/certbot \
   --cert-name fynn-koch.de \
   -d fynn-koch.de \
   -d www.fynn-koch.de \
-  -d tanzschule.fynn-koch.de \
   -d dance-school.fynn-koch.de \
   -d shikaku.fynn-koch.de \
   -d myproject.fynn-koch.de
