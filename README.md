@@ -18,7 +18,8 @@ fynn-koch-landingpage (nginx)
         ├── www.fynn-koch.de           → 301 redirect to fynn-koch.de
         ├── dance-school.fynn-koch.de  → dance-school-ui (Docker container)
         ├── resume.fynn-koch.de        → resume-ui (Docker container)
-        └── shikaku.fynn-koch.de       → shikaku (Docker container)
+        ├── shikaku.fynn-koch.de       → shikaku (Docker container)
+        └── status.fynn-koch.de        → status-ui (Docker container)
 ```
 
 ## Local development
