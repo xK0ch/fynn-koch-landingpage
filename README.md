@@ -69,6 +69,7 @@ sudo certbot certonly --webroot -w /var/www/certbot \
   -d dance-school.fynn-koch.de \
   -d resume.fynn-koch.de \
   -d shikaku.fynn-koch.de \
+  -d status.fynn-koch.de \
   -d myproject.fynn-koch.de
 ```
 
@@ -100,7 +101,8 @@ sudo certbot certonly --standalone \
   -d www.fynn-koch.de \
   -d dance-school.fynn-koch.de \
   -d resume.fynn-koch.de \
-  -d shikaku.fynn-koch.de
+  -d shikaku.fynn-koch.de \
+  -d status.fynn-koch.de
 
 docker compose -f docker-compose-fynn-koch-landingpage.yml up -d
 ```
@@ -119,7 +121,8 @@ sudo certbot certonly --webroot -w /var/www/certbot \
   -d www.fynn-koch.de \
   -d dance-school.fynn-koch.de \
   -d resume.fynn-koch.de \
-  -d shikaku.fynn-koch.de
+  -d shikaku.fynn-koch.de \
+  -d status.fynn-koch.de
 ```
 
 ### Set up automatic renewal (cron job)
@@ -150,5 +153,6 @@ sudo certbot certonly --webroot -w /var/www/certbot \
   -d dance-school.fynn-koch.de \
   -d resume.fynn-koch.de \
   -d shikaku.fynn-koch.de \
+  -d status.fynn-koch.de \
   -d myproject.fynn-koch.de
 ```
