@@ -232,6 +232,7 @@ footer {
 .tech.tech-leptos     { background: #ef3939; }
 .tech.tech-wasm       { background: #654ff0; }
 .tech.tech-typescript { background: #3178c6; }
+.tech.tech-react      { background: #087ea4; }
 
 .card-links {
   display: flex;

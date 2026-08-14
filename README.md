@@ -19,7 +19,8 @@ fynn-koch-landingpage (nginx)
         ├── dance-school.fynn-koch.de  → dance-school-ui (Docker container)
         ├── resume.fynn-koch.de        → resume-ui (Docker container)
         ├── shikaku.fynn-koch.de       → shikaku (Docker container)
-        └── status.fynn-koch.de        → status-ui (Docker container)
+        ├── status.fynn-koch.de        → status-ui (Docker container)
+        └── meals.fynn-koch.de         → mealplan-ui (Docker container)
 ```
 
 ## Local development
@@ -122,7 +123,8 @@ sudo certbot certonly --webroot -w /var/www/certbot \
   -d dance-school.fynn-koch.de \
   -d resume.fynn-koch.de \
   -d shikaku.fynn-koch.de \
-  -d status.fynn-koch.de
+  -d status.fynn-koch.de \
+  -d meals.fynn-koch.de
 ```
 
 ### Set up automatic renewal (cron job)
