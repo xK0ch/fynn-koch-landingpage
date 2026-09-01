@@ -4,6 +4,24 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Fynn Koch</title>
+  <meta name="description" content="Fynn Koch, full-stack software developer. Java/Spring and TypeScript/Angular, frontend and backend. A portfolio of self-hosted projects with source code and live demos." />
+  <link rel="canonical" href="https://fynn-koch.de/" />
+
+  <!-- Open Graph (link previews in email, LinkedIn, Slack, ...) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Fynn Koch" />
+  <meta property="og:title" content="Fynn Koch, Software Developer" />
+  <meta property="og:description" content="Full-stack software developer. Java/Spring and TypeScript/Angular, frontend and backend. A portfolio of self-hosted projects with source code and live demos." />
+  <meta property="og:url" content="https://fynn-koch.de/" />
+  <meta property="og:image" content="https://fynn-koch.de/fynn-koch.jpg" />
+  <meta property="og:image:alt" content="Fynn Koch" />
+
+  <!-- Twitter / X card -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Fynn Koch, Software Developer" />
+  <meta name="twitter:description" content="Full-stack software developer. Java/Spring and TypeScript/Angular, frontend and backend. A portfolio of self-hosted projects with source code and live demos." />
+  <meta name="twitter:image" content="https://fynn-koch.de/fynn-koch.jpg" />
+
   <link rel="icon" type="image/x-icon" href="/favicon.ico" />
   <link rel="stylesheet" href="/src/style.css" />
 </head>
@@ -20,8 +38,10 @@
       <h1>Fynn Koch</h1>
       <p class="tagline">Software developer</p>
       <p class="about">
-        I work across frontend and backend, plus the occasional CLI tool.
-        A good part of what you see here is self-hosted on my home server, this page included.
+        Full-stack software developer with several years of experience, including leading
+        the technical side of an international team. I work mainly with Java/Spring and
+        TypeScript/Angular, across frontend and backend, plus the occasional CLI tool.
+        Much of what you see here is self-hosted on my home server, this page included.
       </p>
       <div class="social">
         <a href="https://github.com/xK0ch" target="_blank" rel="noopener noreferrer">
@@ -223,6 +243,38 @@
           <i class="fa-solid fa-file-pdf" aria-hidden="true"></i> Resume (EN)
         </a>
       </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="section">
+    <h2>Contact</h2>
+    <div class="contact">
+      <p class="contact-intro">
+        Interested in working together, or have a question? Send me a message.
+      </p>
+      <form class="contact-form" id="contact-form" novalidate>
+        <div class="form-row">
+          <div class="field">
+            <label for="contact-name">Name</label>
+            <input type="text" id="contact-name" name="name" autocomplete="name" required />
+          </div>
+          <div class="field">
+            <label for="contact-email">Email</label>
+            <input type="email" id="contact-email" name="email" autocomplete="email" required />
+          </div>
+        </div>
+        <div class="field">
+          <label for="contact-message">Message</label>
+          <textarea id="contact-message" name="message" rows="5" required></textarea>
+        </div>
+        <div class="contact-actions">
+          <button type="submit" class="contact-submit">
+            <i class="fa-solid fa-paper-plane" aria-hidden="true"></i> Send message
+          </button>
+          <p class="contact-status" id="contact-status" role="status" aria-live="polite"></p>
+        </div>
+      </form>
     </div>
   </section>
 
